@@ -1,0 +1,177 @@
+nav {
+	text-align: center;
+	background-color:#39d084;
+	}
+
+footer {
+	background-color:#345266;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	font-size:12px;
+	font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+
+}
+
+.linkBtns {
+	padding-bottom: 20px;
+	padding-top: 10px;
+}
+
+.linkBtns > img {
+	margin-left:10px;
+}
+
+.nav {
+    display:inline-block;
+    float:none;
+	text-align: center;
+}
+
+.navbar-collapse {
+    text-align: center;
+}
+
+.container-fluid {
+	background-color:#203748;
+}
+
+.navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+
+}
+
+.navbar a{
+	color:white;
+}
+
+
+
+.navbar-nav li a:hover {
+    color: #1abc9c !important;
+}
+
+.container-fluid{
+ margin-left:0px;
+ margin-right:0px;
+ padding-left:0px;
+ padding-right:0px;
+}
+.row, footer {
+	color:#EDEDED;
+	padding-left:0px;
+	padding-right:0px;
+	margin-left:0px;
+	margin-right:0px;
+}
+
+h1{
+	color:#39d084;
+}
+h2{
+	padding-bottom:25px;
+	font-size:20px
+}
+p{ font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+}
+.img-circle{
+	padding-top:15px;
+	padding-bottom:10px;
+	width:35%;
+	vertical-align:text-top;
+}
+
+#Info{
+	text-align:left;
+}
+
+
+.btn-primary{
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:20px;
+	padding-right:20px;
+	font-size:16px;
+	border-radius:20px;
+	background-color:#39d084;
+	color:white;
+	border:0;
+}
+
+body{
+background-color:black;
+}
+
+.glyphicon-send{ margin-right:10px;
+}
+
+.nav-pills > li > a:hover,
+.nav-pills > li.active > a,.nav-pills > li.active > a:hover{
+	background-color:#203748;
+	border-radius:30px;
+}
+
+#pictureBox {
+	text-align:right;
+}
+
+
+@media only screen and (max-width: 768px)
+{
+	#pictureBox {text-align:Center;}
+}
+
+@media only screen and (max-width: 991px)
+{
+	#pictureBox {text-align:Center;}
+}
+
+
+
+
+
+
+
+.container-fluid {
+  background-color: #203748;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
