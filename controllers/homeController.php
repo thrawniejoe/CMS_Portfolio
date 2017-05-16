@@ -1,6 +1,7 @@
 <?php
-//require('../model/database.php');
-//require('../model/product_db.php');
+require('../models/database.php');
+require('../models/projects_db.php');
+require('../models/project.php');
 
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
@@ -13,7 +14,7 @@ if ($action === NULL) {
 switch ($action) {
     case 'home':
         include('../views/home/index.php');
-      //test
+        
         break;
       case 'login':
           include('../views/home/login.php');
@@ -25,7 +26,10 @@ switch ($action) {
           include('../views/home/resume.php');
           break;
       case 'portfolio':
+          $projects = get_projects();
           include('../views/home/portfolio.php');
+          break;
+      case 'get_project':
           break;
 }
 

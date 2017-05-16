@@ -7,7 +7,7 @@
 class DatabaseConnection {
     
     public static function getDBconn() {
-        $dns = 'mysql:host=localhost;dbname=portfolio_WebsiteDB';
+        $dns = 'mysql:host=localhost;dbname=portfolio_Website';
         $user = 'root';
         $password = '';
 

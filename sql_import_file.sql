@@ -1,7 +1,9 @@
-
+DROP DATABASE IF EXISTS portfolio_Website;
 CREATE DATABASE portfolio_Website;
 
 USE portfolio_Website;
+
+GO
 
 create table users (
   id int not null AUTO_INCREMENT,
@@ -18,7 +20,7 @@ create table projects (
   id int NOT NULL AUTO_INCREMENT,
   projectName varchar(100),
   description varchar(255),
-  github_Link varhcar(100),
+  github_Link varchar(100),
   sampleSite_Link varchar(100),
   PRIMARY KEY (id)
 );
