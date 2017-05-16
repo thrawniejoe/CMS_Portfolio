@@ -13,24 +13,16 @@
         </tr>
         <?php foreach ($projects as $project) : ?>
             <tr>
-                <td><?php echo htmlspecialchars($project->getprojectName()); ?></td>
-                <td><?php echo htmlspecialchars($project->getdescription()); ?></td>
-                <td><?php echo htmlspecialchars($project->getsampleLink()); ?></td>
+                <td><?php echo htmlspecialchars($project['projectName']); ?></td>
+                <td><?php echo htmlspecialchars($project['description']); ?></td>
+                <td><?php echo htmlspecialchars($project['sampleSite_Link']); ?></td>
                 <td><form action="." method="post">
                         <input type="hidden" name="action"
                                value="get_project">
-                        <input type="hidden" name="Name"
-                               value="<?php echo htmlspecialchars($project->getprojectName()); ?>">
-                        <input type="hidden" name="Description"
-                               value="<?php echo htmlspecialchars($project->getdescription()); ?>">
-                        <input type="hidden" name="Image"
-                               value="<?php echo htmlspecialchars($project->getsampleLink()); ?>">
                         <input type="submit" value="Select">
                     </form></td>
             </tr>
         <?php endforeach; ?>
     </table>
-
-    <p><a href="?action=display_customer_get">Make an Incident</a></p>
 </main>
 <?php include '../views/shared/footer.php'; ?>
