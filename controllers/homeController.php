@@ -2,8 +2,14 @@
 require('../models/database.php');
 require('../models/projects_db.php');
 require('../models/project.php');
+require('../models/home_db.php');
+require('../models/user.php');
+
+session_start();
 
 $action = filter_input(INPUT_POST, 'action');
+$actionGet = filter_input(INPUT_GET, 'action');
+
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
@@ -19,6 +25,9 @@ switch ($action) {
       case 'login':
           include('../views/home/login.php');
           break;
+      case 'registration':
+          include('../views/home/registration.php');
+          break;
       case 'contact':
           include('../views/home/contact.php');
           break;
@@ -31,6 +40,21 @@ switch ($action) {
           break;
       case 'get_project':
           break;
+      case 'login_to_profile':
+          $email = filter_input(INPUT_POST, 'email');
+          $password = filter_input(INPUT_POST, 'password');
+                
+          $result = UserDB::checkLogin($email);
+              if ($result === $password){//(password_verify($password, $result)) {
+                 $confirm = "Login Successful.";
+                 $_SESSION["currentUser"] = UserDB::getUserByEmail($email);
+                 include ('../controllers/managerController.php');
+           }
+           else {
+                  $confirm = "Incorrect login, Please check your login information and try again.";
+                  include ('../views/home/login.php');
+                }
+           break;
 }
 
 

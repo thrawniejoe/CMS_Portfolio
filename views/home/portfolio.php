@@ -1,13 +1,11 @@
 <?php include '../views/shared/header.php'; ?>
-<main class="buffer">
+<main>
+  <div class="container-fluid">
   <div class="col-sm-3"></div>
   <div class="col-sm-6">
     <div class="panel panel-default buffer">
       <div class="panel-body">
         <h2>Select Project</h2>
-
-
-        <!-- display a table of technicians -->
         <table class="table">
           <tr class="panel-heading">
             <th>Name</th>
@@ -35,6 +33,7 @@
           </tr>
           <?php endforeach; ?>
         </table>
+      </div>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-<footer class="text-center">
+<footer class="text-center navbar-fixed-bottom">
 	<div class="row">
    		<div class="col-md-4"><p>www.JoeVelasquez.net</p></div>
   		<div class="col-md-4"></div>

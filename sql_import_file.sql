@@ -13,6 +13,7 @@ create table users (
   email varchar(100),
   phone varchar(20),
   picture varchar(100),
+  password varchar(255),
   PRIMARY KEY (id)
 );
 

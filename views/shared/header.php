@@ -21,6 +21,7 @@
     	</ul>
       <ul class="nav nav-pills navbar-right">
           <li <?=echoActiveClassIfRequestMatches("homeController.php?action=login")?> role="presentation"><a href="?action=login">LOG IN</a></li>
-    	</ul>
+    			<li <?=echoActiveClassIfRequestMatches("homeController.php?action=registration")?> role="presentation"><a href="?action=registration">REGISTER</a></li>
+			</ul>
     </div>
 </nav>

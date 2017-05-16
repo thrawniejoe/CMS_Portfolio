@@ -3,7 +3,8 @@
 class User {
     private $ID, $FirstName, $LastName, $Username, $EmailAddress, $Password, $Phone, $Picture;
     
-    function __construct($FirstName, $LastName, $Username, $EmailAddress, $Password, $Phone, $picture) {
+    function __construct($id, $FirstName, $LastName, $Username, $EmailAddress, $Password, $Phone, $Picture) {
+        $this->ID = $id;
         $this->FirstName = $FirstName;
         $this->LastName = $LastName;
         $this->UserAlias = $Username;
