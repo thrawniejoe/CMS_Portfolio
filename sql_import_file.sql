@@ -1,39 +1,7 @@
-users table -
-id
-first name
-last name
-username
-email
-phone
-picture(picture string name)
-
-
-projects table -
-id
-projectName
-description
-github_Link
-sampleSite_Link
-
-
-projectPictures table -
-id
-project_id
-image_file (just the image file name + extension)
-
-SiteInformation table -
-id
-HomePageIntro
-
-skills table -
-id
-user_id
-skill_Name
-description
-skill_picture
 
 CREATE DATABASE portfolio_Website;
 
+USE portfolio_Website;
 
 create table users (
   id int not null AUTO_INCREMENT,

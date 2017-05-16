@@ -13,6 +13,7 @@ if ($action === NULL) {
 switch ($action) {
     case 'home':
         include('../views/home/index.php');
+      //test
         break;
       case 'login':
           include('../views/home/login.php');
