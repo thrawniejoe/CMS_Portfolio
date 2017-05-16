@@ -1,1 +1,1 @@
-<?php header('location: controllers/homeController.php');?>
+<?php header('location: controllers/homeController.php');//this is a test?>
