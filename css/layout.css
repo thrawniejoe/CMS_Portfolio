@@ -3,8 +3,13 @@ nav {
 	background-color:#18bc9c;
 	}
 
+.buffer{
+	margin-top: 20px;
+	background-color:black;
+}
+
 footer {
-	background-color:#233140;
+	background-color:pink;
 	padding-bottom: 10px;
 	padding-top: 10px;
 	font-size:12px;
