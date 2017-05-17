@@ -45,7 +45,7 @@ switch ($action) {
           $password = filter_input(INPUT_POST, 'password');
                 
           $result = UserDB::checkLogin($email);
-              if ($result === $password){//(password_verify($password, $result)) {
+              if (password_verify($password, $result)) {
                  $confirm = "Login Successful.";
                  $_SESSION["currentUser"] = UserDB::getUserByEmail($email);
                  include ('../controllers/managerController.php');
@@ -61,7 +61,11 @@ switch ($action) {
            $username = filter_input(INPUT_POST, 'username');
            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
            $password = filter_input(INPUT_POST, 'password');
-            
+            /* initialize error messages */
+                if (isset($message)) {
+                    unset($message);
+                }
+                $message = array();
     //validate
         $valid = true;
                 foreach ($message as $m) {
@@ -72,22 +76,19 @@ switch ($action) {
                 }
     
         if ($valid) { 
-                    $options = [
-                        'cost' => 10,
-                        ];
-                    
-                    $result = UserDB::insertUser(new User($firstName, $lastName, $alias, $emailAddress, password_hash($password, PASSWORD_DEFAULT, $options)));
-                    if ($result == 1) {
+                $options = ['cost' => 10,];
+                $result = UserDB::insertUser(new User($firstName, $lastName, $username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));     
+                if ($result == 1) {
                         $confirm = "Registration Complete.";
                     }
                     else {
                         $confirm = "Something went wrong. Your profile was not saved. Please try again.";
                     }
-                    include ('../views/confirmation.php');
+                    include ('../views/home/confirmation.php');
                     exit();
                 }
                 else {
-                    include ('../views/registration.php');
+                    include ('../views/home/registration.php');
                     exit();
                 }
 

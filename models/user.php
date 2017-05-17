@@ -3,15 +3,13 @@
 class User {
     private $ID, $FirstName, $LastName, $Username, $EmailAddress, $Password, $Phone, $Picture;
     
-    function __construct($id, $FirstName, $LastName, $Username, $EmailAddress, $Password, $Phone, $Picture) {
-        $this->ID = $id;
-        $this->FirstName = $FirstName;
-        $this->LastName = $LastName;
-        $this->UserAlias = $Username;
-        $this->EmailAddress = $EmailAddress;
-        $this->Password = $Password;
-        $this->Phone = $Phone;
-        $this->Picture = $Picture;
+    function __construct($firstName, $lastName, $username, $emailAddress, $password) {
+        $this->FirstName = $firstName;
+        $this->LastName = $lastName;
+        $this->Username = $username;
+        $this->EmailAddress = $emailAddress;
+        $this->Password = $password;
+
     }
 
     function getID() {
@@ -27,7 +25,7 @@ class User {
     }
 
     function getUsername() {
-        return $this->UserAlias;
+        return $this->Username;
     }
 
     function getEmailAddress() {
@@ -59,7 +57,7 @@ class User {
     }
 
     function setUsername($Username) {
-        $this->UserAlias = $Username;
+        $this->Username = $Username;
     }
 
     function setEmailAddress($EmailAddress) {

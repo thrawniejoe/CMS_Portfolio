@@ -37,18 +37,18 @@ class UserDB {
   
   
   //UPDATE THIS
-  public static function insertUser(){
+  public static function insertUser($currentUser){
         global $db;
         
-        $insertQuery = 'INSERT INTO Users '
-                       . '(FirstName, LastName, UserAlias, EmailAddress, Password) '
-                       . 'VALUES(:firstname, :lastname, :alias, :emailaddress, :password)';
+        $insertQuery = 'INSERT INTO users '
+                       . '(firstName, lastName, username, email, password) '
+                       . 'VALUES(:firstname, :lastname, :username, :emailaddress, :password)';
 
         //if validate success, execute insert 
         $insertStatement = $db->prepare($insertQuery);
         $insertStatement->bindValue(':firstname', $currentUser->getFirstName());
         $insertStatement->bindValue(':lastname', $currentUser->getLastName());
-        $insertStatement->bindValue(':alias', $currentUser->getUserAlias());
+        $insertStatement->bindValue(':username', $currentUser->getUsername());
         $insertStatement->bindValue(':emailaddress', $currentUser->getEmailAddress());
         $insertStatement->bindValue(':password', $currentUser->getPassword());
         $result = $insertStatement->execute();
