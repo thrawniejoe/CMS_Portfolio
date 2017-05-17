@@ -55,6 +55,42 @@ switch ($action) {
                   include ('../views/home/login.php');
                 }
            break;
+       case 'register':
+           $firstName = filter_input(INPUT_POST, 'firstName');
+           $lastName = filter_input(INPUT_POST, 'lastName');
+           $username = filter_input(INPUT_POST, 'username');
+           $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+           $password = filter_input(INPUT_POST, 'password');
+            
+    //validate
+        $valid = true;
+                foreach ($message as $m) {
+                    if ($m != '') {
+                        $valid = false;
+                        $autofocus[key($m)] = 'autofocus';
+                    }
+                }
+    
+        if ($valid) { 
+                    $options = [
+                        'cost' => 10,
+                        ];
+                    
+                    $result = UserDB::insertUser(new User($firstName, $lastName, $alias, $emailAddress, password_hash($password, PASSWORD_DEFAULT, $options)));
+                    if ($result == 1) {
+                        $confirm = "Registration Complete.";
+                    }
+                    else {
+                        $confirm = "Something went wrong. Your profile was not saved. Please try again.";
+                    }
+                    include ('../views/confirmation.php');
+                    exit();
+                }
+                else {
+                    include ('../views/registration.php');
+                    exit();
+                }
+
 }
 
 
