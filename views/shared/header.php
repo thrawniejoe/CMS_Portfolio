@@ -9,6 +9,7 @@
 	<!-- Bootstrap -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="../css/layout.css" rel="stylesheet" type="text/css">
+	<link href="../css/projects.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <nav class="navbar navbar-defualt">

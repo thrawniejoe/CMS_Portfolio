@@ -14,4 +14,7 @@ switch ($action) {
     case 'login_to_profile':
         include('../views/manager/managerIndex.php');
         break;
+  case 'project_list':
+        include('../views/manager/mgn-projects.php');
+        break;
 }
