@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-        <li><a href="?action=project_list">Modify Projects</a></li>
+        <li <?=echoActiveClassIfRequestMatches("managerController.php?action=manager_home")?>><a href="?action=manager_home">Overview <span class="sr-only">(current)</span></a></li>
+        <li <?=echoActiveClassIfRequestMatches("managerController.php?action=project_list")?>><a href="?action=project_list">Modify Projects</a></li>
         <li><a href="#">Analytics</a></li>
         <li><a href="#">Export</a></li>
       </ul>

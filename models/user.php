@@ -2,7 +2,7 @@
 
 class User {
     private $ID, $FirstName, $LastName, $Username, $EmailAddress, $Password, $Phone, $Picture;
-    
+
     function __construct($firstName, $lastName, $username, $emailAddress, $password) {
         $this->FirstName = $firstName;
         $this->LastName = $lastName;
@@ -11,6 +11,8 @@ class User {
         $this->Password = $password;
 
     }
+  
+
 
     function getID() {
         return $this->ID;

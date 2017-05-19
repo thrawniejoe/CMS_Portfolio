@@ -1,11 +1,10 @@
 <?php
+session_start();
 require('../models/database.php');
 require('../models/projects_db.php');
 require('../models/project.php');
 require('../models/home_db.php');
 require('../models/user.php');
-
-session_start();
 
 $action = filter_input(INPUT_POST, 'action');
 $actionGet = filter_input(INPUT_GET, 'action');
@@ -28,6 +27,11 @@ switch ($action) {
       case 'registration':
           include('../views/home/registration.php');
           break;
+      case 'logOut':
+          session_destroy();
+          header('location: ../controllers/homeController.php');
+          break;
+          exit;
       case 'contact':
           include('../views/home/contact.php');
           break;
@@ -47,14 +51,23 @@ switch ($action) {
           $result = UserDB::checkLogin($email);
               if (password_verify($password, $result)) {
                  $confirm = "Login Successful.";
-                 $_SESSION["currentUser"] = UserDB::getUserByEmail($email);
-                 include ('../controllers/managerController.php');
+                 $_SESSION['currentUser'] = UserDB::getUserByEmail($email);
+                 $_SESSION['username'] = "bob";
+                
+                //idea - send id and a hash from the table(will need new field for hashcode) verify it in managerController
+                //and let the user in based on if its valid... though this is stupid because the user logged in already.
+                 header('location: ../controllers/managerController.php'); 
+                 exit();      
            }
            else {
                   $confirm = "Incorrect login, Please check your login information and try again.";
                   include ('../views/home/login.php');
                 }
            break;
+           exit();
+       case 'openManager':
+            header('location: ../controllers/managerController.php'); 
+            exit();
        case 'register':
            $firstName = filter_input(INPUT_POST, 'firstName');
            $lastName = filter_input(INPUT_POST, 'lastName');
