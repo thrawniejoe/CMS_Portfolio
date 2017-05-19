@@ -1,10 +1,12 @@
 <?php 
-session_start();
+
 require('../models/database.php');
 require('../models/projects_db.php');
 require('../models/project.php');
 require('../models/home_db.php');
 require('../models/user.php');
+
+session_start();
 //require_once('../controllers/homeController.php');
 //require_once('../controllers/homeController.php');
 $action = filter_input(INPUT_POST, 'action');
@@ -24,10 +26,7 @@ if ($action === NULL) {
   //var_dump($myUser);
 if(isset($_SESSION['currentUser'])){
   $user = $_SESSION['currentUser'];
-  echo $user->getFirstName();
-  var_dump($user);
- // $userName = ;
-;
+
 } else {
   $user = "not working";
 }
@@ -44,6 +43,13 @@ switch ($action) {
         break;
   case 'edit_project':
         include('../views/manager/mgn-editProject.php');
+        break;
+  case 'home':
+        header('location: homeController.php');
+        exit();
+        break;
+  case 'add_project':
+        include('../views/manager/mgn-addProject.php');
         break;
 }
 

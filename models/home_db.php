@@ -31,7 +31,7 @@ class UserDB {
         $statement->bindValue(':email', $email);
         $statement->execute();
         $rs = $statement->fetch();
-        $selectedUser = new User($rs["id"], $rs["firstName"], $rs["lastName"], $rs["username"], $rs["email"], $rs["password"], $rs["phone"], $rs["picture"]);
+        $selectedUser = new User($rs["id"], $rs["firstName"], $rs["lastName"], $rs["username"], $rs["email"], $rs["password"]);
         return $selectedUser;
     }
   

@@ -51,11 +51,7 @@ switch ($action) {
           $result = UserDB::checkLogin($email);
               if (password_verify($password, $result)) {
                  $confirm = "Login Successful.";
-                 $_SESSION['currentUser'] = UserDB::getUserByEmail($email);
-                 $_SESSION['username'] = "bob";
-                
-                //idea - send id and a hash from the table(will need new field for hashcode) verify it in managerController
-                //and let the user in based on if its valid... though this is stupid because the user logged in already.
+                 $_SESSION['currentUser'] = UserDB::getUserByEmail($email);                
                  header('location: ../controllers/managerController.php'); 
                  exit();      
            }
