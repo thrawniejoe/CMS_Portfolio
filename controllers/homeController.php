@@ -18,6 +18,7 @@ if ($action === NULL) {
 
 switch ($action) {
     case 'home':
+        $skills = get_skills();
         include('../views/home/index.php');
         
         break;

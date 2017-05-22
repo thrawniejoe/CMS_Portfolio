@@ -35,5 +35,14 @@
           <img src="../images/LinkedIn_logo_initials.png" alt="Linkin" height="35" width="35">
       </div>
     </div>
-</div>
+	<?php
+	foreach (array_chunk($skills, 5, true) as $array) {
+    echo '<div class="row">';
+    foreach($array as $skill) { ?>
+         <img src=../images/skills/<?php echo htmlspecialchars($skill['skill_picture']); ?> style="height:64px;width:64px;" />
+  <?php  
+	}
+    echo '</div>';
+} 
+	?>
 <?php include '../views/shared/footer.php'; ?>

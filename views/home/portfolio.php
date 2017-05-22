@@ -23,7 +23,7 @@ $(document).ready(function() {
     <div id="products" class="row list-group">
         <div class="item col-xs-4 col-lg-4 list-group-item">
             <div class="thumbnail">
-                <img class="group list-group-image" src="../images/<?php echo htmlspecialchars($project['display_picture']); ?>" alt="" />
+                <img class="group list-group-image" src="../images/projects/<?php echo htmlspecialchars($project['display_picture']); ?>" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         <?php echo htmlspecialchars($project['projectName']); ?></h4>

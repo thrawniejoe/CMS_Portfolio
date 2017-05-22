@@ -51,6 +51,24 @@ switch ($action) {
   case 'add_project':
         include('../views/manager/mgn-addProject.php');
         break;
+  case 'add_project_toDB':
+        $pname = filter_input(INPUT_POST, 'pname');
+        $github = filter_input(INPUT_POST, 'github');
+        $demo = filter_input(INPUT_POST, 'demo', FILTER_VALIDATE_FLOAT);
+        $message = filter_input(INPUT_POST, 'message');
+
+        //$ts = strtotime($release_date);
+        //$release_date_db = date('Y-m-d', $ts);  // convert to yyyy-mm-dd format for database storage
+
+        // Validate the inputs
+        if (empty($pname) || empty($message)) {
+            $error = "Invalid product data. Check all fields and try again.";
+            include('../views/errors/error.php');
+        } else {
+            add_project($pname, $github, $demo, $message);
+            include('../views/manager/mgn_success.php');
+        }
+        break;
 }
 
 //checks to see what page the user is on and sets the button as actie
