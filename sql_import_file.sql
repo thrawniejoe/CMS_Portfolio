@@ -53,3 +53,10 @@ create table skills(
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+create table projectSkillList (
+  id INT NOT NULL AUTO_INCREMENT,
+  projectID INT NOT NULL,
+  skill_id INT NOT NULL,
+  PRIMARY KEY (ID)
+);

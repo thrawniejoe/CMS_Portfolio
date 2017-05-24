@@ -85,3 +85,17 @@ function add_skill($user_id, $skill_name, $description, $skill_picture) {
     $statement->closeCursor();
 }
 
+function get_projectSkills($projectID) {
+      global $db;
+      $query = 'select S.skill_picture, S.skill_name
+                  FROM skills S
+                  INNER JOIN projectSkillList PSL
+                  ON (S.ID = PSL.skill_id)
+                  WHERE PSL.projectID = :projectID;';
+      $statement = $db->prepare($query);
+      $statement->bindValue(':projectID', $projectID);
+      $statement->execute();
+      $projectSkills = $statement->fetchAll();
+      $statement->closeCursor();
+      return $projectSkills;
+}

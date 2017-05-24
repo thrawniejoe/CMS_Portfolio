@@ -24,6 +24,12 @@ $(document).ready(function() {
         <div class="item col-xs-4 col-lg-4 list-group-item">
             <div class="thumbnail">
                 <img class="group list-group-image" src="../images/projects/<?php echo htmlspecialchars($project['display_picture']); ?>" alt="" />
+              <div class="pSkills">
+                              <?php $projectSkills = get_projectSkills($project['id']);
+                                foreach($projectSkills as $proSkill) { ?>
+                                <img src=../images/skills/<?php echo htmlspecialchars($proSkill['skill_picture']); ?> style="height:32px;width:32px;" />
+                              <?php } ?>
+                          </div>
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         <?php echo htmlspecialchars($project['projectName']); ?></h4>
@@ -31,16 +37,18 @@ $(document).ready(function() {
                         <?php echo htmlspecialchars($project['description']); ?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">Select</a>
-                        </div>
+                            <a class="btn btn-success" href="?action=projectDetails">Select</a>
+                          
+                        </div>             
                     </div>
+                        <div class="row">
+
+                        </div>  
                 </div>
             </div>
         </div>
-  <?php endforeach; ?>
-  
   </div>
-  
-  
+    <?php endforeach; ?>
+  </div>
 </main>
 <?php include '../views/shared/footer.php'; ?>
