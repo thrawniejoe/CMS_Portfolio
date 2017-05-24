@@ -12,11 +12,8 @@
         <li <?=echoActiveClassIfRequestMatches("managerController.php?action=modify_users")?>><a href="?action=modify_users">Users</a></li>
         <li <?=echoActiveClassIfRequestMatches("managerController.php?action=modify_resume")?>><a href="?action=modify_resume">Change Resume</a></li>
         <li <?=echoActiveClassIfRequestMatches("managerController.php?action=modify_contact")?>><a href="?action=modify_contact">Edit Contact Info</a></li>
-        <li><a href="">More navigation</a></li>
-      </ul>
-      <ul class="nav nav-sidebar">
-        <li><a href="">Nav item again</a></li>
-        <li><a href="">One more nav</a></li>
-        <li><a href="">Another nav item</a></li>
       </ul>
     </div>
+  </div>
+</div>
+    

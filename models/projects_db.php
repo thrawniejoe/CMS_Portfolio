@@ -10,6 +10,17 @@
       return $projects;
 }
 
+ function get_project($id) {
+      global $db;
+      $query = 'SELECT * FROM projects where id = :id';
+      $statement = $db->prepare($query);
+      $statement->bindValue(':id', $id);
+      $statement->execute();
+      $projects = $statement->fetchAll();
+      $statement->closeCursor();
+      return $projects;
+}
+
 function add_project($projectName, $description, $github_Link, $sameSite_Link) {
     global $db;
     $date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format, date for when project added, need to add field to SQL
