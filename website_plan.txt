@@ -1,0 +1,7 @@
+Manager Page:
+Projects - edit, delete and Add
+            Screenshots - Allow manager to add and remove screenshots
+Homepage intro - edit
+Users - edit, delete and add
+Resume - upload(all new uploads will replace previous file)
+Contact Info - edit
