@@ -54,5 +54,7 @@ class UserDB {
         $result = $insertStatement->execute();
         $insertStatement->closeCursor();
         return $result;
-  }
+  } 
+  
+  
 }

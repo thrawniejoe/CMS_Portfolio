@@ -5,6 +5,7 @@ require('../models/projects_db.php');
 require('../models/project.php');
 require('../models/home_db.php');
 require('../models/user.php');
+require('../models/manager_db.php');
 
 session_start();
 //require_once('../controllers/homeController.php');
@@ -42,6 +43,8 @@ switch ($action) {
         include('../views/manager/mgn-projects.php');
         break;
   case 'edit_project':
+        $pId = filter_input(INPUT_POST, 'project_code');
+        $selectedProject = get_project($pId);
         include('../views/manager/mgn-editProject.php');
         break;
   case 'home':
@@ -69,6 +72,12 @@ switch ($action) {
             include('../views/manager/mgn_success.php');
         }
         break;
+  case 'edit_project_DB':
+    break;
+  case 'modify_homepage':
+    $frontPage = get_homepage();
+    include('../views/manager/mgn-editHome.php');
+    break;
 }
 
 //checks to see what page the user is on and sets the button as actie
