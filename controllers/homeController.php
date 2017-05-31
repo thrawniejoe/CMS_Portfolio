@@ -5,6 +5,7 @@ require('../models/projects_db.php');
 require('../models/project.php');
 require('../models/home_db.php');
 require('../models/user.php');
+require('../models/manager_db.php');
 
 $action = filter_input(INPUT_POST, 'action');
 $actionGet = filter_input(INPUT_GET, 'action');
@@ -19,6 +20,7 @@ if ($action === NULL) {
 switch ($action) {
     case 'home':
         $skills = get_skills();
+        $content = get_homepage();
         include('../views/home/index.php');
         
         break;

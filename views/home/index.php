@@ -6,14 +6,11 @@
         </div>
         <div class="col-md-4">
         	<div id="Info">
-          <h1>Joe Velasquez</h1>
-                      <h4><p>Web Developer | Software Developer | Database Developer</p></h4>
-                      <p>Hi, my name is Joe, I am a software developer and technology enthusiast from Lincoln NE who enjoys
-                      writing software and building websites. Here you will find information about the skills I possess as well
-                      as past and current projects im working on.</p>
+          <h1><?php echo htmlspecialchars($content['HomePage_Username']); ?></h1>
+                      <h4><p><?php echo htmlspecialchars($content['HomePage_Header']); ?></p></h4>
+                      <p><?php echo htmlspecialchars($content['HomePage_Paragraph_1']); ?></p>
 
-                      <p>If your a business who is looking for a dedicated developer or systems administrator then,
-                      please feel free to contact me.</p>
+                      <p><?php echo htmlspecialchars($content['HomePage_Paragraph_2']); ?></p>
           </div>
         </div>
         <div class="col-md-4">

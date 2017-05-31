@@ -8,8 +8,7 @@ require('../models/user.php');
 require('../models/manager_db.php');
 
 session_start();
-//require_once('../controllers/homeController.php');
-//require_once('../controllers/homeController.php');
+
 $action = filter_input(INPUT_POST, 'action');
 $actionGet = filter_input(INPUT_GET, 'action');
 
