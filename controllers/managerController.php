@@ -158,6 +158,7 @@ switch ($action) {
     break;
     
   case 'modify_contact':
+    $contact = UserDB::getSiteContactInfo();
     include('../views/manager/mgn-contact.php');
     break;
   case 'update-contact':

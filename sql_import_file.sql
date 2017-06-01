@@ -15,6 +15,7 @@ create table users (
   picture varchar(100),
   password varchar(255),
   accountType varchar(25),
+  mainSite_Account int,
   PRIMARY KEY (id)
 );
 
@@ -41,7 +42,7 @@ create table SiteInformation (
   HomePage_Username varchar(255),
   HomePage_Paragraph_1 text,
   HomePage_Paragraph_2 text,
-  ResumeFile varchar(55);
+  ResumeFile varchar(55),
   PRIMARY KEY (id)
 );
 

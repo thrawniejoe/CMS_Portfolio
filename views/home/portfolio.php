@@ -8,7 +8,7 @@ $(document).ready(function() {
   </script>
 <main class="container">
    
-  
+ <!-- 
   <div class="well well-sm">
         <strong>Projects</strong>
         <div class="btn-group">
@@ -17,6 +17,7 @@ $(document).ready(function() {
                 class="glyphicon glyphicon-th"></span>Grid</a>
         </div>
     </div>
+-->
     <div id="categories-list" class="row list-group">
       <?php foreach ($projects as $project) : ?>
         

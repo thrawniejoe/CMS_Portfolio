@@ -36,6 +36,7 @@ switch ($action) {
           break;
           exit;
       case 'contact':
+          $contact = UserDB::getSiteContactInfo();
           include('../views/home/contact.php');
           break;
       case 'resume':
@@ -45,7 +46,8 @@ switch ($action) {
           $projects = get_projects();
           include('../views/home/portfolio.php');
           break;
-      case 'get_project':
+      case 'projectDetails':
+          include('../views/home/project_details.php');
           break;
       case 'login_to_profile':
           $email = filter_input(INPUT_POST, 'email');

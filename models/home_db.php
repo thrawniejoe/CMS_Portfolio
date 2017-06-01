@@ -56,5 +56,13 @@ class UserDB {
         return $result;
   } 
   
-  
+  public static function getSiteContactInfo() {
+        global $db;
+        $queryGetContact = "SELECT * FROM `users` WHERE mainSite_Account = 1";
+        $statement = $db->prepare($queryGetContact);
+        $statement->execute();
+        $contact = $statement->fetch();
+        $statement->closeCursor();
+        return $contact;
+    }
 }
