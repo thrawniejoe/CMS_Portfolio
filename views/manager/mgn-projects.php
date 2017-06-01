@@ -8,6 +8,10 @@
   <div class="container">
     <div class="panel panel-default buffer">
       <div class="panel-body">
+        <form action="../controllers/managerController.php" method="post">
+                <input type="hidden" name="action" value="add_project">
+                <input class="btn btn-success" type="submit" value="Add Project">
+        </form>
         <h2>Select Project</h2>
         <table class="table">
           <tr class="panel-heading">
@@ -31,13 +35,13 @@
               <form action="../controllers/managerController.php" method="post">
                 <input type='hidden' name='project_code' value=<?php echo htmlspecialchars($project['id']); ?>>
                 <input type="hidden" name="action" value="edit_project">
-                <input type="submit" value="edit">
+                <input class="btn btn-default" type="submit" value="modify">
               </form>
             </td>
             <td>
               <form action="../controllers/managerController.php" method="post">
                 <input type="hidden" name="action" value="delete_project">
-                <input type="submit" value="delete">
+                <input class="btn btn-default" type="submit" value="delete">
               </form>
             </td>
           </tr>

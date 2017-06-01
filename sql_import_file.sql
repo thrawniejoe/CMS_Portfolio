@@ -41,6 +41,7 @@ create table SiteInformation (
   HomePage_Username varchar(255),
   HomePage_Paragraph_1 text,
   HomePage_Paragraph_2 text,
+  ResumeFile varchar(55);
   PRIMARY KEY (id)
 );
 

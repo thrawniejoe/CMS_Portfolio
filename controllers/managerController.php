@@ -46,6 +46,36 @@ switch ($action) {
         $selectedProject = get_project($pId);
         include('../views/manager/mgn-editProject.php');
         break;
+  case 'upload_image':
+      $pId = filter_input(INPUT_POST, 'project_code');
+      $pname = filter_input(INPUT_POST, 'pname');
+        if (isset($_FILES['image'])) {
+            $errors = array();
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_type = $_FILES['image']['type'];
+            $temp2 = explode('.', $_FILES['image']['name']);
+            $temp = end($temp2);
+            $file_ext = strtolower($temp);
+            $extensions = array("jpeg", "jpg", "png", "gif");
+            if (in_array($file_ext, $extensions) === false) {
+                $errors[] = "file extension not in whitelist: " . join(',', $extensions);
+            }
+            if (empty($errors) == true) {
+                if (!file_exists("../images/" . $pname)) {
+                    mkdir("../images/" . $pname);
+                }
+                move_uploaded_file($file_tmp, "../images/" . $pname . "/" . $file_name);
+                //echo "Success";
+                add_picture($pId, "../images/" . $pname . "/" . $file_name);
+              //todo - loop through images in dir and display file name on page
+                $message = $file_name . " added.";
+            } else {
+                $message = "This file extension is not usable. Please try a different extension";
+            }
+        }
+        break;
   case 'home':
         header('location: homeController.php');
         exit();
@@ -56,7 +86,7 @@ switch ($action) {
   case 'add_project_toDB':
         $pname = filter_input(INPUT_POST, 'pname');
         $github = filter_input(INPUT_POST, 'github');
-        $demo = filter_input(INPUT_POST, 'demo', FILTER_VALIDATE_FLOAT);
+        $demo = filter_input(INPUT_POST, 'demo');
         $message = filter_input(INPUT_POST, 'message');
 
         //$ts = strtotime($release_date);
@@ -64,10 +94,11 @@ switch ($action) {
 
         // Validate the inputs
         if (empty($pname) || empty($message)) {
-            $error = "Invalid product data. Check all fields and try again.";
+            $error = "Invalid project data. Check all fields and try again.";
             include('../views/errors/error.php');
         } else {
             add_project($pname, $github, $demo, $message);
+            $R_message ="Project Successfully added to the database.";
             include('../views/manager/mgn_success.php');
         }
         break;
@@ -77,6 +108,76 @@ switch ($action) {
     $frontPage = get_homepage();
     include('../views/manager/mgn-editHome.php');
     break;
+  case 'update_homepage':
+        $header = filter_input(INPUT_POST, 'header');
+        $homeUser = filter_input(INPUT_POST, 'homeUser');
+        $paragraph1 = filter_input(INPUT_POST, 'paragraph1');
+        $paragraph2 = filter_input(INPUT_POST, 'paragraph2');
+
+        // Validate the inputs
+        if (empty($header)) {
+            $error = "Invalid homepage data. Check all fields and try again.";
+            include('../views/errors/error.php');
+        } else {
+            update_homepage($header, $homeUser, $paragraph1, $paragraph2);
+            $R_message ="Homepage Successfully updated.";
+            include('../views/manager/mgn_success.php');
+        }
+    break;
+  case 'modify_resume':
+    include('../views/manager/mgn-resume.php');
+    break;
+  case 'upload_resume':
+    if (isset($_FILES['image'])) {
+            $errors = array();
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_type = $_FILES['image']['type'];
+            $temp2 = explode('.', $_FILES['image']['name']);
+            $temp = end($temp2);
+            $file_ext = strtolower($temp);
+            $extensions = array("pdf", "docx", "txt");
+            if (in_array($file_ext, $extensions) === false) {
+                $errors[] = "file extension not in whitelist: " . join(',', $extensions);
+            }
+            
+            if (empty($errors) == true) {
+                if (!file_exists("../resume/")) {
+                    mkdir("../resume/");
+                }
+                move_uploaded_file($file_tmp, "../resume/" . $file_name);
+                //echo "Success";
+                update_resume("../resume/" . $file_name);
+              //todo - loop through images in dir and display file name on page
+                $message = $file_name . " added.";
+            } else {
+                $message = "This file extension is not usable. Please try a different extension";
+            }
+   }          
+    break;
+    
+  case 'modify_contact':
+    include('../views/manager/mgn-contact.php');
+    break;
+  case 'update-contact':
+           $firstName = filter_input(INPUT_POST, 'firstName');
+           $lastName = filter_input(INPUT_POST, 'lastName');
+           $username = filter_input(INPUT_POST, 'username');
+           $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+           $phone = filter_input(INPUT_POST, 'phone');
+    
+            if (empty($header)) {
+            $error = "Invalid homepage data. Check all fields and try again.";
+            include('../views/errors/error.php');
+        } else {
+            update_homepage($header, $homeUser, $paragraph1, $paragraph2);
+            $R_message ="Contact information Successfully updated.";
+            include('../views/manager/mgn_success.php');
+        }
+    break;
+    
+    
 }
 
 //checks to see what page the user is on and sets the button as actie

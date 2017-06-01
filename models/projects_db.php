@@ -64,7 +64,7 @@ function add_picture($project_id, $image_file) {
             (project_id, image_file)
             VALUES (:project_id, :image_file)';
     $statement = $db->prepare($query);
-    $statement->bindValue(':project_id', $pproject_id);
+    $statement->bindValue(':project_id', $project_id);
     $statement->bindValue(':image_file', $image_file);
     $statement->execute();
     $statement->closeCursor();

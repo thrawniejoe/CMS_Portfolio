@@ -14,15 +14,15 @@
 								<div class='col-sm-4'>
 									<div class='form-group'>
 										<label for='projectName'>Project Name</label>
-										<input type='text' name='projectName' class='form-control' value=<?php echo htmlspecialchars($project['projectName']); ?>>
+										<input type='text' name='projectName' class='form-control' value='<?php echo htmlspecialchars($project['projectName']); ?>'>
 									</div>
 									<div class='form-group'>
 										<label for='gitHub'>Git Hub Link</label>
-										<input type='text' name='gitHub' class='form-control' value=<?php echo htmlspecialchars($project['github_Link']); ?>>
+										<input type='text' name='gitHub' class='form-control' value='<?php echo htmlspecialchars($project['github_Link']); ?>'>
 									</div>
 									<div class='form-group'>
 										<label for='sample'>Sample Site Link</label>
-										<input type='text' name='sample' class='form-control' value=<?php echo htmlspecialchars($project['sampleSite_Link']); ?>>
+										<input type='text' name='sample' class='form-control' value='<?php echo htmlspecialchars($project['sampleSite_Link']); ?>'>
 									</div>
 								</div>
 								<div class='col-sm-8'>
@@ -37,6 +37,18 @@
 								</div>
 							</div>
 						</form>
+						<fieldset style="margin-top: 20px;">
+                <form class="profile_form" action="../controllers/managerController.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="upload_image">
+                    <label for="image">Add Picture: </label>
+                    <input type="file" name="image" style="display: inline-block"/>
+                    <input type="submit" value="Upload" class="btn btn-md btn-primary"/>
+                </form>
+            </fieldset>
+
+            <h2><?php if (isset($message)) {
+    echo $confirm;
+} ?></h2>
 					</div>
 				</div>
 			</div>
