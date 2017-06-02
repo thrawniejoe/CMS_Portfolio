@@ -40,6 +40,7 @@
             </td>
             <td>
               <form action="../controllers/managerController.php" method="post">
+                <input type='hidden' name='project_code' value=<?php echo htmlspecialchars($project['id']); ?>>
                 <input type="hidden" name="action" value="delete_project">
                 <input class="btn btn-default" type="submit" value="delete">
               </form>

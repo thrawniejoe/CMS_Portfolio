@@ -8,6 +8,7 @@
         <div class='col-sm-10 col-sm-offset-1'>
           <div class='well'>
             <form  action="../controllers/managerController.php" method="post">
+              <input type="hidden" name="action" value="add_project_toDB">
               <div class='row'>
                 <div class='col-sm-4'>
                   <div class='form-group'>

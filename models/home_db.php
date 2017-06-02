@@ -65,4 +65,24 @@ class UserDB {
         $statement->closeCursor();
         return $contact;
     }
+  
+  public static function update_contact($firstName,$lastName,$username,$email,$phone) {
+        global $db;
+        $queryUpdateUser = "UPDATE users "
+                . "SET firstName= :firstName, "
+                . "lastName= :lastName, "
+                . "username= :username,"
+                . "email = :email "
+                . "phone = :phone "
+                . "WHERE mainSite_Account= 1";
+        $statement = $db->prepare($queryUpdateUser);
+        $statement->bindValue(':firstName', $firstName);
+        $statement->bindValue(':lastName', $lastName);
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':email', $email);
+        $statement->bindValue(':phone', $phone);
+        $result = $statement->execute();
+        $statement->closeCursor();
+        return $result;
+    }
 }

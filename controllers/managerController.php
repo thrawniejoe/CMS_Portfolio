@@ -94,15 +94,42 @@ switch ($action) {
 
         // Validate the inputs
         if (empty($pname) || empty($message)) {
-            $error = "Invalid project data. Check all fields and try again.";
+            $message = "Invalid project data. Check all fields and try again.";
             include('../views/errors/error.php');
         } else {
-            add_project($pname, $github, $demo, $message);
+            add_project($pname, $message, $github, $demo);
             $R_message ="Project Successfully added to the database.";
             include('../views/manager/mgn_success.php');
         }
         break;
   case 'edit_project_DB':
+        $pId = filter_input(INPUT_POST, 'project_code');
+        $pname = filter_input(INPUT_POST, 'projectName');
+        $github = filter_input(INPUT_POST, 'gitHub');
+        $demo = filter_input(INPUT_POST, 'sample');
+        $message = filter_input(INPUT_POST, 'description');
+        
+        $project = new Project($pId, $pname, $message, $github, $demo); 
+
+        //$ts = strtotime($release_date);
+        //$release_date_db = date('Y-m-d', $ts);  // convert to yyyy-mm-dd format for database storage
+
+        // Validate the inputs
+        if (empty($pname) || empty($message)) {
+            $message = "Invalid project data. Check all fields and try again.";
+            include('../views/errors/error.php');
+        } else {
+            update_project($project);
+            $R_message ="Project Successfully added to the database.";
+            include('../views/manager/mgn_success.php');
+        }
+        break;
+    break;
+  case 'delete_project':
+    $pId = filter_input(INPUT_POST, 'project_code');
+    delete_project($pId);
+    $projects = get_projects();
+    include('../views/manager/mgn-projects.php');
     break;
   case 'modify_homepage':
     $frontPage = get_homepage();
@@ -116,7 +143,7 @@ switch ($action) {
 
         // Validate the inputs
         if (empty($header)) {
-            $error = "Invalid homepage data. Check all fields and try again.";
+            $message = "Invalid homepage data. Check all fields and try again.";
             include('../views/errors/error.php');
         } else {
             update_homepage($header, $homeUser, $paragraph1, $paragraph2);
@@ -158,9 +185,22 @@ switch ($action) {
     break;
     
   case 'modify_contact':
-    $contact = UserDB::getSiteContactInfo();
-    include('../views/manager/mgn-contact.php');
-    break;
+      $contact = UserDB::getSiteContactInfo();
+    if(isset($contact)){
+      $firstName = $contact['firstName'];
+      $lastName = $contact['lastName'];
+      $username = $contact['username'];
+      $emailAddress = $contact['email'];
+      $phone = $contact['phone'];
+      include('../views/manager/mgn-contact.php');
+    }
+    else
+    {
+      $message = "Error, site user is not set.";
+      include('../views/errors/error.php');
+    }
+      
+      break;
   case 'update-contact':
            $firstName = filter_input(INPUT_POST, 'firstName');
            $lastName = filter_input(INPUT_POST, 'lastName');
@@ -169,13 +209,17 @@ switch ($action) {
            $phone = filter_input(INPUT_POST, 'phone');
     
             if (empty($header)) {
-            $error = "Invalid homepage data. Check all fields and try again.";
+            $message = "Invalid homepage data. Check all fields and try again.";
             include('../views/errors/error.php');
         } else {
-            update_homepage($header, $homeUser, $paragraph1, $paragraph2);
+            UserDB::update_contact($firstName, $lastName, $username, $email, $phone);
             $R_message ="Contact information Successfully updated.";
             include('../views/manager/mgn_success.php');
         }
+    break;
+  case 'modify_users':
+    //$users;
+    include('../views/manager/mgn_users.php');
     break;
     
     

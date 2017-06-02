@@ -10,6 +10,7 @@
 						<?php foreach ($selectedProject as $project) : ?>
 						<form class="profile_form" action="../controllers/managerController.php" method="post">
 							<input type="hidden" name="action" value="edit_project_DB">
+							<input type="hidden" name="project_code" value="<?php echo htmlspecialchars($project['id']); ?>">
 							<div class='row'>
 								<div class='col-sm-4'>
 									<div class='form-group'>

@@ -21,7 +21,7 @@
                     <span style="color:red"><?php if (isset($message['lastName'])) {echo $message['lastName'];} ?></span>
 
                     <label for="alias">Username: </label>
-                    <input type="text" name="username" class="form-control" value="<?php if (!isset($alias)) {$username = "";} echo $username;?>" <?php if (isset($autofocus['username'])) {echo $autofocus['username'];} ?>><br>
+                    <input type="text" name="username" class="form-control" value="<?php if (!isset($username)) {$username = "";} echo $username;?>" <?php if (isset($autofocus['username'])) {echo $autofocus['username'];} ?>><br>
                     <span style="color:red"><?php if (isset($message['username'])) {echo $message['username'];} ?></span>
 
                     <label for="email">Email Address: </label>

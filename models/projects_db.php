@@ -26,7 +26,7 @@ function add_project($projectName, $description, $github_Link, $sameSite_Link) {
     $date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format, date for when project added, need to add field to SQL
     $query =
         'INSERT INTO projects
-            (projectName, description, github_Link, sameSite_Link)
+            (projectName, description, github_Link, sampleSite_Link)
             VALUES (:projectName, :description, :github_Link, :sameSite_Link)';
     $statement = $db->prepare($query);
     $statement->bindValue(':projectName', $projectName);
@@ -38,7 +38,7 @@ function add_project($projectName, $description, $github_Link, $sameSite_Link) {
 }
 
 function update_project($project) {
-        $db = DatabaseConnection::getDBconn();
+        global $db;
         $queryUpdateUser = "UPDATE projects "
                 . "SET projectName= :projectName, "
                 . "description= :description, "
@@ -46,15 +46,24 @@ function update_project($project) {
                 . "sampleSite_Link = :sampleSite_Link "
                 . "WHERE id= :id";
         $statement = $db->prepare($queryUpdateUser);
-        $statement->bindValue(':projectName', $project->getProjectName());
-        $statement->bindValue(':description', $project->getDescription());
-        $statement->bindValue(':github_Link', $project->getGithub_Link());
-        $statement->bindValue(':sampleSite_Link', $project->getSampleSite_Link());
+        $statement->bindValue(':projectName', $project->getprojectName());
+        $statement->bindValue(':description', $project->getdescription());
+        $statement->bindValue(':github_Link', $project->getgithub());
+        $statement->bindValue(':sampleSite_Link', $project->getsampleLink());
         $statement->bindValue(':id', $project->getID());
         $result = $statement->execute();
         $statement->closeCursor();
         return $result;
     }
+
+ function delete_project($id) {
+      global $db;
+      $query = 'DELETE FROM projects where id = :id';
+      $statement = $db->prepare($query);
+      $statement->bindValue(':id', $id);
+      $statement->execute();
+      $statement->closeCursor();
+}
 
 function add_picture($project_id, $image_file) {
     global $db;

@@ -47,6 +47,8 @@ switch ($action) {
           include('../views/home/portfolio.php');
           break;
       case 'projectDetails':
+          $project_code = filter_input(INPUT_POST, 'project_code');
+          $project = get_project($projects);
           include('../views/home/project_details.php');
           break;
       case 'login_to_profile':
