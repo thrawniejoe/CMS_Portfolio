@@ -68,6 +68,15 @@ function update_project($project) {
       $statement->closeCursor();
 }
 
+function delete_projectPictures($project_id) {
+      global $db;
+      $query = 'DELETE FROM projectPictures where project_id = :id';
+      $statement = $db->prepare($query);
+      $statement->bindValue(':id', $project_id);
+      $statement->execute();
+      $statement->closeCursor();
+}
+
 function add_picture($project_id, $image_file) {
     global $db;
     $date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format
