@@ -8,7 +8,7 @@ $(document).ready(function() {
   </script>
 <main class="container">
    
- <!-- 
+ 
   <div class="well well-sm">
         <strong>Projects</strong>
         <div class="btn-group">
@@ -17,14 +17,14 @@ $(document).ready(function() {
                 class="glyphicon glyphicon-th"></span>Grid</a>
         </div>
     </div>
--->
+
     <div id="categories-list" class="row list-group">
       <?php foreach ($projects as $project) : ?>
         
     <div id="products" class="row list-group">
         <div class="item col-xs-4 col-lg-4 list-group-item">
             <div class="thumbnail">
-                <img class="group list-group-image" src="../images/projects/<?php echo htmlspecialchars($project['display_picture']); ?>" alt="" />
+                <img class="group list-group-image" src="<?php echo htmlspecialchars($project['display_picture']); ?>" alt="" />
               <div class="pSkills">
                               <?php $projectSkills = get_projectSkills($project['id']);
                                 foreach($projectSkills as $proSkill) { ?>

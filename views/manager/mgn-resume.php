@@ -9,7 +9,7 @@
           <div class='well'>
             <fieldset style="margin-top: 20px;">
                 <form class="profile_form" action="../controllers/managerController.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="upload_image">
+                    <input type="hidden" name="action" value="upload_resume">
                     <label for="image">Upload Resume: </label>
                     <input type="file" name="image" style="display: inline-block"/>
                     <input type="submit" value="Upload" class="btn btn-md btn-primary"/>

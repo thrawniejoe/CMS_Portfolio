@@ -1,5 +1,5 @@
 <?php include '../views/shared/header_backend.php'; ?>
-<?php include '../views/shared/sidebar.php'; ?>
+<?php //include '../views/shared/sidebar.php'; ?>
 <div class="container">
 	<div class="row text-center">
         <div class="col-sm-6 col-sm-offset-3">

@@ -44,12 +44,13 @@ switch ($action) {
   case 'edit_project':
         $pId = filter_input(INPUT_POST, 'project_code');
         $selectedProject = get_project($pId);
+        $projectPictures = get_pictures($pId);
         include('../views/manager/mgn-editProject.php');
         break;
   case 'upload_image':
       $pId = filter_input(INPUT_POST, 'project_code');
       $pname = filter_input(INPUT_POST, 'pname');
-        if (isset($_FILES['image'])) {
+      if (isset($_FILES['image'])) {
             $errors = array();
             $file_name = $_FILES['image']['name'];
             $file_size = $_FILES['image']['size'];
@@ -62,19 +63,26 @@ switch ($action) {
             if (in_array($file_ext, $extensions) === false) {
                 $errors[] = "file extension not in whitelist: " . join(',', $extensions);
             }
+            
             if (empty($errors) == true) {
-                if (!file_exists("../images/" . $pname)) {
-                    mkdir("../images/" . $pname);
+                if (!file_exists("../images/projects/" . $pname)) {
+                    mkdir("../images/projects/" . $pname);
                 }
-                move_uploaded_file($file_tmp, "../images/" . $pname . "/" . $file_name);
+                move_uploaded_file($file_tmp, "../images/projects/" . $pname . "/" . $file_name);
                 //echo "Success";
-                add_picture($pId, "../images/" . $pname . "/" . $file_name);
+                add_picture($pId, "../images/projects/" . $pname . "/" . $file_name);
+                $R_message ="Resume Successfully uploaded.";
+                
               //todo - loop through images in dir and display file name on page
-                $message = $file_name . " added.";
+                $message = $file_name . " added as main picture.";
+                $selectedProject = get_project($pId);
+                include('../views/manager/mgn-editProject.php');
             } else {
+                
                 $message = "This file extension is not usable. Please try a different extension";
+                include('../views/errors/error.php');
             }
-        }
+   }      
         break;
   case 'home':
         header('location: homeController.php');
@@ -88,18 +96,63 @@ switch ($action) {
         $github = filter_input(INPUT_POST, 'github');
         $demo = filter_input(INPUT_POST, 'demo');
         $message = filter_input(INPUT_POST, 'message');
-
         //$ts = strtotime($release_date);
         //$release_date_db = date('Y-m-d', $ts);  // convert to yyyy-mm-dd format for database storage
 
         // Validate the inputs
+        //start file file add
         if (empty($pname) || empty($message)) {
             $message = "Invalid project data. Check all fields and try again.";
             include('../views/errors/error.php');
         } else {
-            add_project($pname, $message, $github, $demo);
+            
+            
+         //redo, make into function and call from another file(Phase 2 - after project 3 is due)   
+         if (isset($_FILES['image'])) {
+                     
+            $errors = array();
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_type = $_FILES['image']['type'];
+            $temp2 = explode('.', $_FILES['image']['name']);
+            $temp = end($temp2);
+            $file_ext = strtolower($temp);
+            $extensions = array("jpeg", "jpg", "png", "gif");
+            
+            if (in_array($file_ext, $extensions) === false) {
+                $errors[] = "file extension not in whitelist: " . join(',', $extensions);
+            }
+            
+            if (empty($errors) == true) {
+                if (!file_exists("../images/projects/" . $pname)) {
+                    mkdir("../images/projects/" . $pname);
+                }
+                move_uploaded_file($file_tmp, "../images/projects/" . $pname . "/" . $file_name);
+                //echo "Success";
+            $mainPicture = "../images/projects/" . $pname . "/" . $file_name;
+            //var_dump($mainPicture);
+            add_project($pname, $message, $github, $demo, $mainPicture);
             $R_message ="Project Successfully added to the database.";
             include('../views/manager/mgn_success.php');
+            } else {
+                
+                $message = "This file extension is not usable. Please try a different extension";
+                include('../views/errors/error.php');
+            }
+ 
+   }   else {
+       
+                $message = "Image not set.";
+                include('../views/errors/error.php');
+ }    
+
+            
+            //$mainPicture = "../images/projects/" . $pname . "/" . $file_name;
+            
+            //add_project($pname, $message, $github, $demo, $mainPicture);
+            //$R_message ="Project Successfully added to the database.";
+            //include('../views/manager/mgn_success.php');
         }
         break;
   case 'edit_project_DB':
@@ -124,7 +177,6 @@ switch ($action) {
             include('../views/manager/mgn_success.php');
         }
         break;
-    break;
   case 'delete_project':
     $pId = filter_input(INPUT_POST, 'project_code');
     delete_project($pId);
@@ -176,10 +228,14 @@ switch ($action) {
                 move_uploaded_file($file_tmp, "../resume/" . $file_name);
                 //echo "Success";
                 update_resume("../resume/" . $file_name);
+                $R_message ="Resume Successfully uploaded.";
+                include('../views/manager/mgn_success.php');
               //todo - loop through images in dir and display file name on page
                 $message = $file_name . " added.";
             } else {
+                
                 $message = "This file extension is not usable. Please try a different extension";
+                include('../views/errors/error.php');
             }
    }          
     break;
@@ -230,7 +286,7 @@ function echoActiveClassIfRequestMatches($requestUri)
 {
     $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
 
-    if ($current_file_name == $requestUri)
-        echo 'class="active"';
+    if ($current_file_name == $requestUri){
+    echo 'class="active"';}
 }
-?>
+

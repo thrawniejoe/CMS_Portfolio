@@ -34,7 +34,6 @@ switch ($action) {
           session_destroy();
           header('location: ../controllers/homeController.php');
           break;
-          exit;
       case 'contact':
           $contact = UserDB::getSiteContactInfo();
           include('../views/home/contact.php');
@@ -67,7 +66,6 @@ switch ($action) {
                   include ('../views/home/login.php');
                 }
            break;
-           exit();
        case 'openManager':
             header('location: ../controllers/managerController.php'); 
             exit();
@@ -116,8 +114,8 @@ function echoActiveClassIfRequestMatches($requestUri)
 {
     $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
 
-    if ($current_file_name == $requestUri)
-        echo 'class="active"';
+    if ($current_file_name == $requestUri){
+    echo 'class="active"';}
 }
 
-?>
+

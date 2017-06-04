@@ -21,18 +21,19 @@
       return $projects;
 }
 
-function add_project($projectName, $description, $github_Link, $sameSite_Link) {
+function add_project($projectName, $description, $github_Link, $sameSite_Link, $displayPicture) {
     global $db;
-    $date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format, date for when project added, need to add field to SQL
+    //$date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format, date for when project added, need to add field to SQL
     $query =
         'INSERT INTO projects
-            (projectName, description, github_Link, sampleSite_Link)
-            VALUES (:projectName, :description, :github_Link, :sameSite_Link)';
+            (projectName, description, github_Link, sampleSite_Link, display_picture)
+            VALUES (:projectName, :description, :github_Link, :sameSite_Link, :displayPic)';
     $statement = $db->prepare($query);
     $statement->bindValue(':projectName', $projectName);
     $statement->bindValue(':description', $description);
     $statement->bindValue(':github_Link', $github_Link);
     $statement->bindValue(':sameSite_Link', $sameSite_Link);
+    $statement->bindValue(':displayPic', $displayPicture);
     $statement->execute();
     $statement->closeCursor();
 }
@@ -43,13 +44,15 @@ function update_project($project) {
                 . "SET projectName= :projectName, "
                 . "description= :description, "
                 . "github_Link= :github_Link,"
-                . "sampleSite_Link = :sampleSite_Link "
+                . "sampleSite_Link = :sampleSite_Link, "
+                . "display_picture = :displayPic"
                 . "WHERE id= :id";
         $statement = $db->prepare($queryUpdateUser);
         $statement->bindValue(':projectName', $project->getprojectName());
         $statement->bindValue(':description', $project->getdescription());
         $statement->bindValue(':github_Link', $project->getgithub());
         $statement->bindValue(':sampleSite_Link', $project->getsampleLink());
+        $statement->bindValue(':displayPic', $project->getDisplayPicture());
         $statement->bindValue(':id', $project->getID());
         $result = $statement->execute();
         $statement->closeCursor();
@@ -77,6 +80,17 @@ function add_picture($project_id, $image_file) {
     $statement->bindValue(':image_file', $image_file);
     $statement->execute();
     $statement->closeCursor();
+}
+
+function get_pictures($project_id) {
+      global $db;
+      $query = 'SELECT * FROM projectPictures where project_id = :projectID';
+      $statement = $db->prepare($query);
+      $statement->bindValue(':projectID', $project_id);
+      $statement->execute();
+      $skills = $statement->fetchAll();
+      $statement->closeCursor();
+      return $skills;
 }
 
 function get_skills() {

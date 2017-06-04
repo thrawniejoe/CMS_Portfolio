@@ -25,6 +25,7 @@ create table projects (
   description text,
   github_Link varchar(100),
   sampleSite_Link varchar(100),
+  display_picture varchar(100),
   PRIMARY KEY (id)
 );
 

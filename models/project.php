@@ -1,13 +1,14 @@
 <?php
 class Project {
-    private $id, $projectName, $description, $github, $sampleLink;
+    private $id, $projectName, $description, $github, $sampleLink, $displayPicture;
 
-    public function __construct($id, $projectname, $description, $github, $samplelink) {
+    public function __construct($id, $projectname, $description, $github, $samplelink, $displayPicture) {
         $this->id = $id;
         $this->projectName = $projectname;
         $this->description = $description;
         $this->github = $github;
         $this->sampleLink = $samplelink;
+        $this->displayPicture = $displayPicture;
     }
 
     public function getID() {
@@ -28,7 +29,6 @@ class Project {
     public function setdescription($value) {
         $this->description = $value;
     }
-      
     public function getgithub() {
         return $this->github;
     }
@@ -40,6 +40,12 @@ class Project {
     }
     public function setsampleLink($value) {
         $this->sampleLink = $value;
+    }
+    public function getDisplayPicture($value){
+        $this->displayPicture = $value;
+    }
+    public function setDisplayPicture($value) {
+        $this->displayPicture = $value;
     }
 }
 ?>
