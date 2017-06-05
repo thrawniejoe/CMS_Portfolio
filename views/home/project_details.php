@@ -1,52 +1,58 @@
 <?php include '../views/shared/header.php'; ?>
-  <main>
-	
-	<div class="container">
-		<div class="card">
-			<div class="container-fliud">
-				<div class="wrapper row">
-					<div class="preview col-md-6">
-						
-						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
-						</div>
-						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						</ul>
-						
-					</div>
-					<div class="details col-md-6">
-						<h3 class="product-title">men's shoes fashion</h3>
-						<p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-						<h4 class="price">current price: <span>$180</span></h4>
-						
-						<h5 class="sizes">sizes:
-							<span class="size" data-toggle="tooltip" title="small">s</span>
-							<span class="size" data-toggle="tooltip" title="medium">m</span>
-							<span class="size" data-toggle="tooltip" title="large">l</span>
-							<span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-						</h5>
-						<h5 class="colors">colors:
-							<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-							<span class="color green"></span>
-							<span class="color blue"></span>
-						</h5>
-						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-  </main>
+<main>
+
+    <div class="container">
+        <?php foreach ($selectedProject as $project) : ?>
+            <div class="card">
+                <div class="container-fliud">
+                    <div class="wrapper row">
+                        <div class="preview col-md-6">
+
+                            <div class="preview-pic tab-content">
+
+                                <div class="tab-pane active" id="pic-1"><img src="<?php echo htmlspecialchars($project['display_picture']); ?>" /></div>
+                            </div>
+                            <ul class="preview-thumbnail nav nav-tabs">
+
+                                <?php
+                                foreach (array_chunk($projectPictures, 5, true) as $array) {
+                                    foreach ($array as $pics) {
+                                        ?>
+
+                                        <li><a data-target="#pic-2" data-toggle="tab"><img src=<?php echo htmlspecialchars($pics['image_file']); ?> /></a></li>
+                                        <?php
+                                    }
+                                }
+                                ?>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="details col-md-6">
+                            <h3 class="product-title"><?php echo htmlspecialchars($project['projectName']); ?></h3>
+                            <p class="product-description"><?php echo htmlspecialchars($project['description']); ?></p>
+                            <h5 class="colors">Languages Used:
+                                <div class="pSkills">
+                                    <?php //$projectSkills = get_projectSkills($project['id']);
+                                    foreach ($projectSkills as $proSkill) {
+                                        ?>
+                                        <img src=<?php echo htmlspecialchars($proSkill['skill_picture']); ?> style="height:32px;width:32px;" />
+    <?php } ?>
+                                </div>
+                                                              <!--<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+                                                              <span class="color green"></span>
+                                                              <span class="color blue"></span>-->
+                            </h5>
+                            <div class="action">
+                                <a href="<?php echo htmlspecialchars($project['github_Link']);  ?>"><button class="like btn btn-default" type="button">GitHub<span class="fa fa-heart"></span></button></a>
+                                <a href="<?php echo htmlspecialchars($project['sampleSite_Link']);  ?>"><button class="like btn btn-default" type="button">Sample Site<span class="fa fa-heart"></span></button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<?php endforeach;?>
+    </div>
+</main>
 <?php include '../views/shared/footer.php'; ?>

@@ -1,6 +1,20 @@
 <?php
 
 class UserDB {
+    
+    public static function checkAlias($alias) {
+        global $db;
+        
+        //make sure alias is unique in the database
+        $queryCheckAlias = "SELECT COUNT(*) as 'total' FROM users "
+                         . 'WHERE username = :alias';
+        $statement = $db->prepare($queryCheckAlias);
+        $statement->bindValue(':alias', $alias);
+        $statement->execute(array(':alias' => $alias));
+        $result = $statement->fetchObject();
+        return $result;
+    }
+    
     public static function checkUsername($Username){
         global $db;
         
@@ -10,7 +24,7 @@ class UserDB {
         $statement->bindValue(':username', $Username);
         $statement->execute(array(':username' => $Username)); //might not need this since binding value
         $results = $statement->fetchObject();
-        return $result;
+        return $results;
     }
     
     public static function checkLogin($email){
@@ -72,7 +86,7 @@ class UserDB {
                 . "SET firstName= :firstName, "
                 . "lastName= :lastName, "
                 . "username= :username,"
-                . "email = :email "
+                . "email = :email, "
                 . "phone = :phone "
                 . "WHERE mainSite_Account= 1";
         $statement = $db->prepare($queryUpdateUser);

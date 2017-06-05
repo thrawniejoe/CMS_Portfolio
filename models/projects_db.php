@@ -58,6 +58,28 @@ function update_project($project) {
         $statement->closeCursor();
         return $result;
     }
+    
+    //non object update
+    function modify_project($id, $projectName, $description, $github_link, $sample) {
+        global $db;
+        $queryUpdateUser = "UPDATE projects "
+                . "SET projectName= :projectName, "
+                . "description= :description, "
+                . "github_Link= :github_Link,"
+                . "sampleSite_Link = :sampleSite_Link "
+                //. "display_picture = :displayPic"
+                . "WHERE id= :id";
+        $statement = $db->prepare($queryUpdateUser);
+        $statement->bindValue(':projectName', $projectName);
+        $statement->bindValue(':description', $description);
+        $statement->bindValue(':github_Link', $github_link);
+        $statement->bindValue(':sampleSite_Link', $sample);
+        //$statement->bindValue(':displayPic', $project->getDisplayPicture());
+        $statement->bindValue(':id', $id);
+        $result = $statement->execute();
+        $statement->closeCursor();
+        return $result;
+    }
 
  function delete_project($id) {
       global $db;
@@ -79,7 +101,7 @@ function delete_projectPictures($project_id) {
 
 function add_picture($project_id, $image_file) {
     global $db;
-    $date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format
+    //$date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format
     $query =
         'INSERT INTO projectPictures
             (project_id, image_file)
@@ -114,10 +136,10 @@ function get_skills() {
 
 function add_skill($user_id, $skill_name, $description, $skill_picture) {
     global $db;
-    $date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format, date for when project added, need to add field to SQL
+    //$date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format, date for when project added, need to add field to SQL
     $query =
         'INSERT INTO skills
-            (projectName, description, github_Link, sameSite_Link)
+            (user_id, skill_name, description, skill_picture)
             VALUES (:user_id, :skill_name, :description, :skill_picture)';
     $statement = $db->prepare($query);
     $statement->bindValue(':user_id', $user_id);
@@ -128,9 +150,19 @@ function add_skill($user_id, $skill_name, $description, $skill_picture) {
     $statement->closeCursor();
 }
 
+ function delete_skill($id) {
+      global $db;
+      $query = 'DELETE FROM skills where id = :id';
+      $statement = $db->prepare($query);
+      $statement->bindValue(':id', $id);
+      $statement->execute();
+      $statement->closeCursor();
+}
+
+
 function get_projectSkills($projectID) {
       global $db;
-      $query = 'select S.skill_picture, S.skill_name
+      $query = 'select *
                   FROM skills S
                   INNER JOIN projectSkillList PSL
                   ON (S.ID = PSL.skill_id)
@@ -141,4 +173,41 @@ function get_projectSkills($projectID) {
       $projectSkills = $statement->fetchAll();
       $statement->closeCursor();
       return $projectSkills;
+}
+
+function add_ProjectSkill($projectID, $skill_id) {
+    global $db;
+    //$date_opened = date('Y-m-d');  // get current date in yyyy-mm-dd format, date for when project added, need to add field to SQL
+    $query =
+        'INSERT INTO projectSkillList
+            (projectID, skill_id)
+            VALUES (:projectID, :skill_id)';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':projectID', $projectID);
+    $statement->bindValue(':skill_id', $skill_id);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+function checkSkill($projectId, $skillId){
+    global $db;
+    $query = 
+           'SELECT * FROM `projectskilllist` WHERE `projectID` = :projectID AND  `skill_id` = :skill_id';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':projectID', $projectId);
+    $statement->bindValue(':skill_id', $skillId);
+    $statement->execute();
+    $projectSkills = $statement->fetch();
+    $statement->closeCursor();
+    return $projectSkills;
+}
+
+
+ function delete_projectskill($id) {
+      global $db;
+      $query = 'DELETE FROM projectskilllist where id = :id';
+      $statement = $db->prepare($query);
+      $statement->bindValue(':id', $id);
+      $statement->execute();
+      $statement->closeCursor();
 }
