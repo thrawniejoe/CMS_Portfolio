@@ -67,11 +67,87 @@
                             ?>
                         </div>
 
-                        <h3><?php if (isset($message)) {
+                        <h3><?php
+                            if (isset($message)) {
                                 echo $message;
-                            } ?></h3>
+                            }
+                            ?></h3>
+
                     </div>
                 </div>
+            </div>
+            <div class='row'>
+                <p>Current Skills</p>
+
+                <table class="table">
+                    <tr class="panel-heading">
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Image Link</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <div class="pSkills">
+                            <?php $projectSkills = get_projectSkills($project['id']);
+                                        foreach ($projectSkills as $proSkill) {
+                                        ?>
+                        </div>
+                        <tr>
+                            <td>
+                                <img src=<?php echo htmlspecialchars($proSkill['skill_picture']); ?> style="height:64px;width:64px;" />
+                            </td>
+                            <td>
+                                <?php echo htmlspecialchars($proSkill['skill_name']); ?>
+                            </td>
+                            <td>
+                                <?php echo htmlspecialchars($proSkill['description']); ?>
+                            </td>
+                            <td>
+                                <form action="../controllers/managerController.php" method="post">
+                                    <input type='hidden' name='skillID' value=<?php echo htmlspecialchars($proSkill['id']); ?>>
+                                    <input type='hidden' name='project_code' value=<?php echo htmlspecialchars($project['id']); ?>>
+                                    <input type="hidden" name="action" value="DeleteSkillFromProject">
+                                    <input class="btn btn-default" type="submit" value="Delete Skill">
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </table>
+
+
+                <p>Add Skills</p>
+                <table class="table">
+                    <tr class="panel-heading">
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Image Link</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <?php foreach ($skills as $skill) : ?>
+                        <tr>
+                            <td>
+                                <img src=<?php echo htmlspecialchars($skill['skill_picture']); ?> style="height:64px;width:64px;" />
+                            </td>
+                            <td>
+                                <?php echo htmlspecialchars($skill['skill_name']); ?>
+                            </td>
+                            <td>
+                                <?php echo htmlspecialchars($skill['description']); ?>
+                            </td>
+                            <td>
+                                <form action='../controllers/managerController.php' method='post'>
+                                    <input type='hidden' name='skillID' value=<?php echo htmlspecialchars($skill['id']); ?>>
+                                    <input type='hidden' name='project_code' value=<?php echo htmlspecialchars($project['id']); ?>>
+                                    <input type='hidden' name='action' value='AddSkillToProject'>
+                                    <input class='btn btn-default' type='submit' value='Add Skill'>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+
+
+
+
             </div>
         </div>
     </div>

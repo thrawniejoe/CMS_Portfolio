@@ -3,8 +3,6 @@ CREATE DATABASE portfolio_Website;
 
 USE portfolio_Website;
 
-GO
-
 create table users (
   id int not null AUTO_INCREMENT,
   firstName varchar(100),
@@ -63,3 +61,14 @@ create table projectSkillList (
   skill_id INT NOT NULL,
   PRIMARY KEY (ID)
 );
+
+create table resume (
+id INT NOT NULL AUTO_INCREMENT,
+resume varchar(50),
+PRIMARY KEY (id)
+);
+
+
+
+INSERT INTO `SiteInformation` (`id`, `HomePage_Header`, `HomePage_Username`, `HomePage_Paragraph_1`, `HomePage_Paragraph_2`, `ResumeFile`) VALUES
+(1, 'Web Developer | Software Developer | Database Developer', 'Joe Velasquez', 'Hi, my name is Joe, I am a software developer and technology enthusiast from Lincoln NE who enjoys writing software and building websites. Here you will find information about the skills I possess as well as past and current projects im working on.', 'If your a business who is looking for a dedicated developer or systems administrator then, please feel free to contact me.', '../resume/JoeVResume.pdf');

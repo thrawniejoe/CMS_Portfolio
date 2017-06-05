@@ -47,7 +47,10 @@ switch ($action) {
           break;
       case 'projectDetails':
           $project_code = filter_input(INPUT_POST, 'project_code');
-          $project = get_project($projects);
+          $selectedProject = get_project($project_code);
+          $projectPictures = get_pictures($project_code);
+          $projectSkills = get_projectSkills($project_code);
+          //Phase 2 - Add ability to prevent the same skill from being added twice. 
           include('../views/home/project_details.php');
           break;
       case 'login_to_profile':
@@ -57,7 +60,8 @@ switch ($action) {
           $result = UserDB::checkLogin($email);
               if (password_verify($password, $result)) {
                  $confirm = "Login Successful.";
-                 $_SESSION['currentUser'] = UserDB::getUserByEmail($email);                
+                 $_SESSION['currentUser'] = UserDB::getUserByEmail($email); 
+                 
                  header('location: ../controllers/managerController.php'); 
                  exit();      
            }

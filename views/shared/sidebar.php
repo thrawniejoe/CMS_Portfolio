@@ -9,7 +9,7 @@
       </ul>
       <ul class="nav nav-sidebar">
         <li <?=echoActiveClassIfRequestMatches("managerController.php?action=modify_homepage")?>><a href="?action=modify_homepage">Modify Homepage</a></li>
-        <li <?=echoActiveClassIfRequestMatches("managerController.php?action=modify_users")?>><a href="?action=modify_users">Users</a></li>
+        <li <?=echoActiveClassIfRequestMatches("managerController.php?action=skills")?>><a href="?action=skills">Skills</a></li>
         <li <?=echoActiveClassIfRequestMatches("managerController.php?action=modify_resume")?>><a href="?action=modify_resume">Change Resume</a></li>
         <li <?=echoActiveClassIfRequestMatches("managerController.php?action=modify_contact")?>><a href="?action=modify_contact">Edit Contact Info</a></li>
       </ul>

@@ -28,7 +28,7 @@ $(document).ready(function() {
               <div class="pSkills">
                               <?php $projectSkills = get_projectSkills($project['id']);
                                 foreach($projectSkills as $proSkill) { ?>
-                                <img src=../images/skills/<?php echo htmlspecialchars($proSkill['skill_picture']); ?> style="height:32px;width:32px;" />
+                                <img src=<?php echo htmlspecialchars($proSkill['skill_picture']); ?> style="height:32px;width:32px;" />
                               <?php } ?>
                           </div>
                 <div class="caption">
@@ -38,7 +38,12 @@ $(document).ready(function() {
                         <?php echo htmlspecialchars($project['description']); ?></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="?action=projectDetails">Select</a>
+                            <form action="../controllers/homeController.php" method="POST" enctype="multipart/form-data">
+                                <input type='hidden' name='project_code' value=<?php echo htmlspecialchars($project['id']); ?>>
+                                <input type="hidden" name="action" value="projectDetails">
+                                <input type="submit" value="Select" class="btn btn btn-success"/>
+                            </form>
+                            
                           
                         </div>             
                     </div>

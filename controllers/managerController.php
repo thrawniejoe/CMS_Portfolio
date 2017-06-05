@@ -43,6 +43,7 @@ switch ($action) {
         $pId = filter_input(INPUT_POST, 'project_code');
         $selectedProject = get_project($pId);
         $projectPictures = get_pictures($pId);
+        $skills = get_skills();
         include('../views/manager/mgn-editProject.php');
         break;
     case 'upload_image':
@@ -132,8 +133,10 @@ switch ($action) {
                     $mainPicture = "../images/projects/" . $pname . "/" . $file_name;
                     //var_dump($mainPicture);
                     add_project($pname, $message, $github, $demo, $mainPicture);
-                    $R_message = "Project Successfully added to the database.";
-                    include('../views/manager/mgn_success.php');
+                    $message = "Project Successfully added to the database.";
+                    //include('../views/manager/mgn_success.php');
+                    $projects = get_projects();
+        include('../views/manager/mgn-projects.php');
                 } else {
 
                     $message = "This file extension is not usable. Please try a different extension";
@@ -158,8 +161,10 @@ switch ($action) {
         $github = filter_input(INPUT_POST, 'gitHub');
         $demo = filter_input(INPUT_POST, 'sample');
         $message = filter_input(INPUT_POST, 'description');
-
-        $project = new Project($pId, $pname, $message, $github, $demo);
+        
+        
+        
+        //$project = new Project($pId, $pname, $message, $github, $demo);
 
         //$ts = strtotime($release_date);
         //$release_date_db = date('Y-m-d', $ts);  // convert to yyyy-mm-dd format for database storage
@@ -168,10 +173,30 @@ switch ($action) {
             $message = "Invalid project data. Check all fields and try again.";
             include('../views/errors/error.php');
         } else {
-            update_project($project);
+            modify_project($pId,$pname,$message,$github,$demo);
+            //update_project($project);
             $R_message = "Project Successfully added to the database.";
             include('../views/manager/mgn_success.php');
         }
+        break;
+    case 'AddSkillToProject':
+        $sId = filter_input(INPUT_POST, 'skillID');
+        $pId = filter_input(INPUT_POST, 'project_code');
+        
+        add_ProjectSkill($pId,$sId);
+        $selectedProject = get_project($pId);
+        $projectPictures = get_pictures($pId);
+        $skills = get_skills();
+        include('../views/manager/mgn-editProject.php');
+        break;
+    case 'DeleteSkillFromProject':
+        $sId = filter_input(INPUT_POST, 'skillID');
+        delete_projectskill($sId);
+        $pId = filter_input(INPUT_POST, 'project_code');
+        $selectedProject = get_project($pId);
+        $projectPictures = get_pictures($pId);
+        $skills = get_skills();
+        include('../views/manager/mgn-editProject.php');
         break;
     case 'delete_project':
         $pId = filter_input(INPUT_POST, 'project_code');
@@ -259,8 +284,8 @@ switch ($action) {
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $phone = filter_input(INPUT_POST, 'phone');
 
-        if (empty($header)) {
-            $message = "Invalid homepage data. Check all fields and try again.";
+        if (empty($email)) {
+            $message = "E-Mail address is Required. Enter in an e-mail address and try again. Remember, changing email address will change your login email too.";
             include('../views/errors/error.php');
         } else {
             UserDB::update_contact($firstName, $lastName, $username, $email, $phone);
@@ -272,6 +297,58 @@ switch ($action) {
         //$users;
         include('../views/manager/mgn_users.php');
         break;
+    
+    
+    case 'skills':
+        $skills = get_skills();
+        include('../views/manager/mgn-skills.php');
+        break;
+     case 'delete_skill':
+        $sId = filter_input(INPUT_POST, 'skillID');
+        delete_skill($sId);
+        $skills = get_skills();
+        include('../views/manager/mgn-skills.php');
+        break;
+    case 'modify_skills':
+        
+        $userID = $_SESSION['currentUser']->getID();
+        $skilName = filter_input(INPUT_POST, 'skillName');
+        $description = filter_input(INPUT_POST, 'description');
+                
+        if (isset($_FILES['image'])) {
+            $errors = array();
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_type = $_FILES['image']['type'];
+            $temp2 = explode('.', $_FILES['image']['name']);
+            $temp = end($temp2);
+            $file_ext = strtolower($temp);
+            $extensions = array("jpeg", "jpg", "png", "gif");
+            if (in_array($file_ext, $extensions) === false) {
+                $errors[] = "file extension not in whitelist: " . join(',', $extensions);
+            }
+
+            if (empty($errors) == true) {
+                if (!file_exists("../images/skills/")) {
+                    mkdir("../images/skills/");
+                }
+                move_uploaded_file($file_tmp,  "../images/skills/" . $file_name);
+                //echo "Success";
+                add_skill($userID , $skilName,$description ,"../images/skills/" . $file_name);
+                $R_message = "Skill Successfully uploaded.";
+                //include('../views/manager/mgn_success.php');
+                //todo - loop through images in dir and display file name on page
+                $message = $file_name . " added.";
+            } else {
+
+                $message = "This file extension is not usable. Please try a different extension";
+                include('../views/errors/error.php');
+            }
+        $skills = get_skills();
+        include('../views/manager/mgn-skills.php');
+        break; 
+        }
 }
 
 //checks to see what page the user is on and sets the button as actie

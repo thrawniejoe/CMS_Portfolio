@@ -10,7 +10,7 @@ class UserDB {
         $statement->bindValue(':username', $Username);
         $statement->execute(array(':username' => $Username)); //might not need this since binding value
         $results = $statement->fetchObject();
-        return $result;
+        return $results;
     }
     
     public static function checkLogin($email){
@@ -72,7 +72,7 @@ class UserDB {
                 . "SET firstName= :firstName, "
                 . "lastName= :lastName, "
                 . "username= :username,"
-                . "email = :email "
+                . "email = :email, "
                 . "phone = :phone "
                 . "WHERE mainSite_Account= 1";
         $statement = $db->prepare($queryUpdateUser);
