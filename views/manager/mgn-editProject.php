@@ -38,7 +38,7 @@
                                         <div class='text-right'>
                                             <input type='submit' class='btn btn-primary' value='Submit' />
                                         </div>
-                                    <?php endforeach; ?>
+                                    
                                 </div>
                             </div>
                         </form>
@@ -76,45 +76,15 @@
                     </div>
                 </div>
             </div>
+             <div class="pSkills">Current Skills:
+                              <?php $projectSkills = get_projectSkills($project['id']);
+                                foreach($projectSkills as $proSkill) { ?>
+                <img src=<?php echo htmlspecialchars($proSkill['skill_picture']); ?> style="height:32px;width:32px;" />
+                              <?php } ?>
+                          </div>
+            
             <div class='row'>
-                <p>Current Skills</p>
-
-                <table class="table">
-                    <tr class="panel-heading">
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Image Link</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                    <div class="pSkills">
-                            <?php $projectSkills = get_projectSkills($project['id']);
-                                        foreach ($projectSkills as $proSkill) {
-                                        ?>
-                        </div>
-                        <tr>
-                            <td>
-                                <img src=<?php echo htmlspecialchars($proSkill['skill_picture']); ?> style="height:64px;width:64px;" />
-                            </td>
-                            <td>
-                                <?php echo htmlspecialchars($proSkill['skill_name']); ?>
-                            </td>
-                            <td>
-                                <?php echo htmlspecialchars($proSkill['description']); ?>
-                            </td>
-                            <td>
-                                <form action="../controllers/managerController.php" method="post">
-                                    <input type='hidden' name='skillID' value=<?php echo htmlspecialchars($proSkill['id']); ?>>
-                                    <input type='hidden' name='project_code' value=<?php echo htmlspecialchars($project['id']); ?>>
-                                    <input type="hidden" name="action" value="DeleteSkillFromProject">
-                                    <input class="btn btn-default" type="submit" value="Delete Skill">
-                                </form>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </table>
-
-
-                <p>Add Skills</p>
+                <p>Skill List</p>
                 <table class="table">
                     <tr class="panel-heading">
                         <th>Name</th>
@@ -134,18 +104,29 @@
                                 <?php echo htmlspecialchars($skill['description']); ?>
                             </td>
                             <td>
+                                
+                                <?php $skillExists = checkSkill($project['id'],$skill['id']);
+                                if ($skillExists == false):  ?>
                                 <form action='../controllers/managerController.php' method='post'>
                                     <input type='hidden' name='skillID' value=<?php echo htmlspecialchars($skill['id']); ?>>
                                     <input type='hidden' name='project_code' value=<?php echo htmlspecialchars($project['id']); ?>>
                                     <input type='hidden' name='action' value='AddSkillToProject'>
-                                    <input class='btn btn-default' type='submit' value='Add Skill'>
+                                    <input class='btn btn-success' type='submit' value='Add Skill'>
                                 </form>
+                                <?php else:  ?>
+                                <form action="../controllers/managerController.php" method="post">
+                                    <input type='hidden' name='skillID' value=<?php echo htmlspecialchars($skill['id']); ?>>
+                                    <input type='hidden' name='project_code' value=<?php echo htmlspecialchars($project['id']); ?>>
+                                    <input type="hidden" name="action" value="DeleteSkillFromProject">
+                                    <input class="btn btn-danger" type="submit" value="Delete Skill">
+                                </form>
+                                <?php endif;?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </table>
 
-
+<?php endforeach; ?>
 
 
             </div>

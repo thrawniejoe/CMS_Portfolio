@@ -44,6 +44,7 @@ switch ($action) {
         $selectedProject = get_project($pId);
         $projectPictures = get_pictures($pId);
         $skills = get_skills();
+        
         include('../views/manager/mgn-editProject.php');
         break;
     case 'upload_image':
